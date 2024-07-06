@@ -25,24 +25,24 @@ import java.util.stream.Collectors;
 public class SwaggerConfig {
 
     /**
-     * User API
+     * Stocks API
      */
     @Bean
     public GroupedOpenApi userApi() {
         final String[] packagesToScan = {"com.controller"};
         return GroupedOpenApi
                 .builder()
-                .group("User API")
+                .group("Stocks API")
                 .packagesToScan(packagesToScan)
                 .pathsToMatch("/stocks/**")
                 //.addOpenApiCustomiser(basicAuthCustomizer())
                 .addOpenApiCustomiser(bearerAuthCustomizer())
                 .addOpenApiCustomiser(tagsSorterCustomizer())
-                .addOpenApiCustomiser(userApiCustomizer())
+                .addOpenApiCustomiser(stockApiCustomizer())
                 .build();
     }
 
-    private OpenApiCustomiser userApiCustomizer() {
+    private OpenApiCustomiser stockApiCustomizer() {
         return openAPI -> openAPI
                 .info(new Info()
                         .title("Springboot & OpenAPI")
