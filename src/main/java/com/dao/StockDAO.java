@@ -14,7 +14,7 @@ public class StockDAO {
     private JdbcTemplate jdbcTemplate;
 
     public List<Map<String, Object>> getAllStocks() {
-        String sql = "SELECT isin, search_id, nse_scrip_code, bse_scrip_code, groww_company_id, industry_id, " +
+        String selectClause = "SELECT isin, search_id, nse_scrip_code, bse_scrip_code, groww_company_id, industry_id, " +
                 "industry_name, display_name, short_name, market_cap, pb_ratio, pe_ratio, div_yield, " +
                 "book_value, eps_ttm, roe, industry_pe, capped_type, dividend_yield_in_percent, face_value, " +
                 "debt_to_equity, return_on_assets, return_on_equity, cash_ratio, debt_to_asset, ev_to_sales, " +
@@ -23,8 +23,14 @@ public class StockDAO {
                 "sector_pe, price_to_sales, peg_ratio, year_low_price, year_high_price, fiis, diis, promoters, " +
                 "other_domestic_institutions, retail_and_others, symbol, roce, screener_company_id, " +
                 "screener_data_warehouse_id, operating_profit_margin, interest_coverage_ratio, market_cap_sales_ratio, " +
-                "change_fii_hold, change_dii_hold, eps_growth_three_year " +
-                "FROM public.stock_details limit 10";
+                "change_fii_hold, change_dii_hold, eps_growth_three_year ";
+
+        String fromClause = "FROM public.stock_details ";
+
+        String limitClause = "LIMIT 10";
+
+        String sql = selectClause + fromClause + limitClause;
+
         return jdbcTemplate.queryForList(sql);
     }
 }
