@@ -1,7 +1,9 @@
 package com.controller;
 
+import com.dto.StockDTO;
 import com.model.User;
 import com.repository.UserRepository;
+import com.service.StockService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,21 +17,36 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Tag(description = "User API", name = "User Services")
+@Tag(description = "SmartCase API", name = "Stock Services")
 @Controller
 public class SpringController {
 
     private final AtomicInteger counter = new AtomicInteger();
 
     private final UserRepository userRepository;
+    private final StockService stockService;
 
     @Autowired
-    public SpringController(UserRepository userRepository) {
+    public SpringController(UserRepository userRepository, StockService stockService) {
         this.userRepository = userRepository;
+        this.stockService = stockService;
+    }
+
+    @GetMapping("/stocks")
+    @Operation(summary = "Get all stocks",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Returns all stocks",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = StockDTO.class)))
+            })
+    @ResponseBody
+    public List<StockDTO> getAllStocks() {
+        return stockService.getAllStocks();
     }
 
     @GetMapping("/users")
-    @Operation(summary = "Returns all users", tags = {"User",},
+    @Operation(summary = "Returns all users",
             responses = {
                     @ApiResponse(responseCode = "200",
                             description = "Returns all users",
@@ -41,6 +58,7 @@ public class SpringController {
         return userRepository.findAll();
     }
 
+    @Deprecated
     @PostMapping("/users")
     @Operation(summary = "Register a new user",
             responses = {
@@ -55,6 +73,7 @@ public class SpringController {
         return userRepository.addUser(newUser);
     }
 
+    @Deprecated
     @PutMapping("/users/{id}")
     @Operation(summary = "Update a user's name",
             responses = {
@@ -68,6 +87,7 @@ public class SpringController {
         return userRepository.updateUser(id, newName).orElseThrow(() -> new EntityNotFoundException("Error! User not found!"));
     }
 
+    @Deprecated
     @DeleteMapping("/users/{id}")
     @Operation(summary = "Delete a user",
             responses = {

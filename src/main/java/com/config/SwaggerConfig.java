@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .builder()
                 .group("User API")
                 .packagesToScan(packagesToScan)
-                .pathsToMatch("/users/**")
+                .pathsToMatch("/stocks/**")
                 //.addOpenApiCustomiser(basicAuthCustomizer())
                 .addOpenApiCustomiser(bearerAuthCustomizer())
                 .addOpenApiCustomiser(tagsSorterCustomizer())
