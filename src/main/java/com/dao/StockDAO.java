@@ -14,8 +14,17 @@ public class StockDAO {
     private JdbcTemplate jdbcTemplate;
 
     public List<Map<String, Object>> getAllStocks() {
-        String sql = "SELECT id, stock_name, \"date\", \"open\", high, year_low, year_high, volume, created, highlight, symbol, ltp, buy_percent, sell_percent, isin_number\n" +
-                "FROM stock_detail LIMIT 10 ";
+        String sql = "SELECT isin, search_id, nse_scrip_code, bse_scrip_code, groww_company_id, industry_id, " +
+                "industry_name, display_name, short_name, market_cap, pb_ratio, pe_ratio, div_yield, " +
+                "book_value, eps_ttm, roe, industry_pe, capped_type, dividend_yield_in_percent, face_value, " +
+                "debt_to_equity, return_on_assets, return_on_equity, cash_ratio, debt_to_asset, ev_to_sales, " +
+                "ev_to_ebitda, earnings_yield, sector_pb, sector_div_yield, sector_roe, sector_roce, price_to_ocf, " +
+                "price_to_fcf, roic, pe_premium_vs_sector, pb_premium_vs_sector, div_yield_vs_sector, current_ratio, " +
+                "sector_pe, price_to_sales, peg_ratio, year_low_price, year_high_price, fiis, diis, promoters, " +
+                "other_domestic_institutions, retail_and_others, symbol, roce, screener_company_id, " +
+                "screener_data_warehouse_id, operating_profit_margin, interest_coverage_ratio, market_cap_sales_ratio, " +
+                "change_fii_hold, change_dii_hold, eps_growth_three_year " +
+                "FROM public.stock_details limit 10";
         return jdbcTemplate.queryForList(sql);
     }
 }
