@@ -34,11 +34,10 @@ public class SwaggerConfig {
                 .builder()
                 .group("Stocks API")
                 .packagesToScan(packagesToScan)
-                .pathsToMatch("/stocks/**")
+                .pathsToMatch("/stocks/**", "/mutualFunds/**")
                 //.addOpenApiCustomiser(basicAuthCustomizer())
                 .addOpenApiCustomiser(bearerAuthCustomizer())
                 .addOpenApiCustomiser(tagsSorterCustomizer())
-                .addOpenApiCustomiser(stockApiCustomizer())
                 .build();
     }
 

@@ -1,6 +1,8 @@
 package com.controller;
 
+import com.dto.MutualFundsDTO;
 import com.dto.StockDTO;
+import com.service.MutualFundsService;
 import com.service.StockService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,18 +18,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Tag(description = "SmartCase API", name = "Stock Services")
 @Controller
-public class SpringController {
+public class StockController {
 
     private final AtomicInteger counter = new AtomicInteger();
 
     private final StockService stockService;
 
     @Autowired
-    public SpringController(StockService stockService) {
+    public StockController(StockService stockService) {
         this.stockService = stockService;
     }
 
-    @GetMapping("/stocks")
+    @GetMapping("/stocks/getAllStocks")
     @Operation(summary = "Get all stocks",
             responses = {
                     @ApiResponse(responseCode = "200",
@@ -39,6 +41,10 @@ public class SpringController {
     public List<StockDTO> getAllStocks() {
         return stockService.getAllStocks();
     }
+
+
+
+
 
 
 
